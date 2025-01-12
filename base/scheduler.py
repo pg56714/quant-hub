@@ -35,7 +35,7 @@ class BaseScheduler(object):
         except:
             message = (
                 f"```"
-                f"Error: {job_class.__name__} failed at {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}\n"
+                f"Error: {job_class.__name__} failed at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
                 f"{traceback.format_exc()[-1900:]}\n"                
             )
             self.discord.send_message(Discord.CRITICAL, message)   
@@ -46,7 +46,7 @@ class BaseScheduler(object):
         except:
             message = (
                 f"```"
-                f"Error: {job_class.__name__} failed at {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}\n"
+                f"Error: {job_class.__name__} failed at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
                 f"{traceback.format_exc()[-1900:]}\n"                
             )
             self.discord.send_message(Discord.CRITICAL, message)
