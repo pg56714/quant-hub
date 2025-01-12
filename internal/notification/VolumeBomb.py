@@ -98,7 +98,7 @@ class VolumeBomb(object):
         if ohlcv_df['volume'].iloc[-1] >= mean_volume * 10:
             message = (
                 f"```"
-                f"**[🔥｜Volume Bomb] {symbol}爆量{trend}**\n"
+                f"[🔥｜Volume Bomb] {symbol}爆量{trend}\n"
                 f"現價：{ohlcv_df['close'].iloc[-1]}\n"
                 f"成交量：{ohlcv_df['volume'].iloc[-1]}"
                 f"```"
