@@ -6,6 +6,14 @@ COPY . /app
 
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-CMD ["python", "main.py"]
+RUN python -m venv .venv && \
+    . .venv/bin/activate && \
+    uv pip install --upgrade pip setuptools wheel && \
+    uv pip install -r pyproject.toml
+
+ENV VIRTUAL_ENV=/app/.venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+CMD ["uv", "run", "main.py"]
