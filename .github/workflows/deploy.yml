@@ -28,6 +28,6 @@ jobs:
         run: |
           sshpass -e ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USERNAME }}@${{ secrets.VM_HOST }} '
             cd /root/crypto/quant-hub &&
-            git pull &&        
+            git pull &&
             sudo sh deploy.sh
           '

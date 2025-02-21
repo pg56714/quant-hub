@@ -1,17 +1,19 @@
 from discord import SyncWebhook
-from base.config_reader import Config
-from base.enums import Discord
+from config.env_config import Env
 
-import os
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CONFIG_DIR = os.path.join(ROOT, 'config')
-CONFIG_PATH = os.path.join(CONFIG_DIR, 'discord.json')
-
-class DiscordConnector(object):
+class DiscordConnector:
     def __init__(self):
-        self.config = Config(CONFIG_PATH)[Discord.WEBHOOK]
-        
+        self.webhooks = {
+            "VOLUMEBOMB": Env.DISCORD_CHANNEL_VOLUMEBOMB,
+            # "CRITICAL": Env.DISCORD_CHANNEL_CRITICAL,
+            # "TEST": Env.DISCORD_CHANNEL_TEST,
+        }
+
     def send_message(self, channel, message):
-        webhook = SyncWebhook.from_url(self.config[channel])
+        webhook_url = self.webhooks.get(channel.upper())
+        if not webhook_url:
+            raise ValueError(f"Invalid Discord channel: {channel}")
+
+        webhook = SyncWebhook.from_url(webhook_url)
         webhook.send(message)

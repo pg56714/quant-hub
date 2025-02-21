@@ -1,5 +1,4 @@
 from base.discord import DiscordConnector
-from base.enums import Discord
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.executors.pool import ThreadPoolExecutor
@@ -18,7 +17,6 @@ scheduler = BackgroundScheduler(job_defaults=job_defaults, executors=executors)
 
 
 class BaseScheduler(object):
-
     def __init__(self):
         self.discord = DiscordConnector()
 
@@ -32,7 +30,7 @@ class BaseScheduler(object):
                 f"Error: {job_class.__name__} failed at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
                 f"{traceback.format_exc()[-1900:]}\n"
             )
-            self.discord.send_message(Discord.CRITICAL, message)
+            self.discord.send_message("CRITICAL", message)
 
     def execute_async_job(self, job_class):
         try:
@@ -43,4 +41,4 @@ class BaseScheduler(object):
                 f"Error: {job_class.__name__} failed at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
                 f"{traceback.format_exc()[-1900:]}\n"
             )
-            self.discord.send_message(Discord.CRITICAL, message)
+            self.discord.send_message("CRITICAL", message)
